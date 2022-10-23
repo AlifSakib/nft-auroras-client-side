@@ -1,11 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
+  const { logInUser } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState({
     email: "",
     password: "",
   });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    logInUser(userInfo.email, userInfo.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const handleEmailChange = (e) => {
     const email = e.target.value;
@@ -20,7 +34,7 @@ const Login = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-        <form className="w-full max-w-md">
+        <form onSubmit={handleSubmit} className="w-full max-w-md">
           <h1 className="text-3xl font-semibold text-gray-800 capitalize dark:text-white">
             Log in
           </h1>

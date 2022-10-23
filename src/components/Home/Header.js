@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Header = () => {
+  const { user, logOutUser } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOutUser();
+  };
   return (
     <div>
       <nav class="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900  w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -12,12 +17,21 @@ const Header = () => {
             </span>
           </Link>
           <div class="flex md:order-2">
-            <Link
-              to="/register"
-              className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
-            >
-              Register
-            </Link>
+            {user?.uid ? (
+              <button
+                onClick={handleLogOut}
+                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
+              >
+                Log out
+              </button>
+            ) : (
+              <Link
+                to="/register"
+                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-purple-400 hover:bg-purple-700 focus:shadow-outline focus:outline-none"
+              >
+                Register
+              </Link>
+            )}
           </div>
           <div
             class="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"

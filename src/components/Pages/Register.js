@@ -9,6 +9,18 @@ const Register = () => {
     password: "",
   });
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createUser(userInfo.email, userInfo.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const handleEmailChange = (e) => {
     const email = e.target.value;
     setUserInfo({ ...userInfo, email: email });
@@ -23,7 +35,7 @@ const Register = () => {
     <div>
       <section className="bg-white dark:bg-gray-900">
         <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-          <form className="w-full max-w-md">
+          <form onSubmit={handleSubmit} className="w-full max-w-md">
             <h1 className="text-3xl font-semibold text-gray-800 capitalize dark:text-white">
               Register
             </h1>

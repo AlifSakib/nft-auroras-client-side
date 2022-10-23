@@ -3,6 +3,7 @@ import Login from "../components/Pages/Login";
 import Register from "../components/Pages/Register";
 import Profile from "../components/Profile/Profile";
 import Wallet from "../components/Wallet/Wallet";
+import PrivateRoutes from "./PrivateRoutes";
 
 const { createBrowserRouter } = require("react-router-dom");
 const { default: Home } = require("../components/Home/Home");
@@ -23,7 +24,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoutes>
+            <Profile></Profile>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/collections",
@@ -31,7 +36,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/wallet",
-        element: <Wallet></Wallet>,
+        element: (
+          <PrivateRoutes>
+            <Wallet></Wallet>
+          </PrivateRoutes>
+        ),
       },
       {
         path: "/login",
