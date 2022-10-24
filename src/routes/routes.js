@@ -32,6 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/collections",
+        loader: () => fetch("http://localhost:5000/nfts"),
         element: <Collections></Collections>,
       },
       {
