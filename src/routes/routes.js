@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/collections",
-        loader: () => fetch("http://localhost:5000/nfts"),
+        loader: () => fetch("https://nft-auroras-server-side.vercel.app/nfts"),
         element: <Collections></Collections>,
       },
       {
