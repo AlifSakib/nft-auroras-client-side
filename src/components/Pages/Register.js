@@ -10,6 +10,8 @@ const Register = () => {
     password: "",
   });
 
+  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     createUser(userInfo.email, userInfo.password)
@@ -31,7 +33,38 @@ const Register = () => {
 
   const handlePasswordChange = (e) => {
     const password = e.target.value;
+    const special = !/(?=.*[!#$%&?@"])/.test(password);
+    const lowerCase = !/(?=.*[a-z])/.test(password);
+    const upperCase = !/(?=.*[A-Z])/.test(password);
+
+    if (password.length < 6 || special || lowerCase || upperCase) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+
+    //?should contain at least one digit
+    // if (!/(?=.*\d)/.test(password)) {
+    //   setError(true);
+    // }
+
+    // //? should contain at least one lower case
+    // if (!/(?=.*[a-z])/.test(password)) {
+    //   setError(true);
+    // }
+
+    // //? should contain at least one upper case
+    // if (!/(?=.*[A-Z])/.test(password)) {
+    //   setError(true);
+    // }
+    // //? Special characters
+    // if (!/(?=.*[!#$%&?@"])/.test(password)) {
+    //   setError(true);
+    // }
+
     setUserInfo({ ...userInfo, password: password });
+
+    console.log(password);
   };
 
   return (
@@ -90,14 +123,21 @@ const Register = () => {
 
               <input
                 type="password"
-                className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                // className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+
+                className={
+                  error
+                    ? "block w-full px-10 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-red-400 dark:focus:border-red-300 focus:ring-red-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    : "block w-full px-10 py-3 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-green-400 dark:focus:border-green-300 focus:ring-green-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                }
                 placeholder="Password"
                 value={userInfo.password}
                 onChange={handlePasswordChange}
               />
             </div>
+            <div className="mt-4 text-red-600">{error}</div>
 
-            <div className="mt-6">
+            <div className="mt-3">
               <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 Register
               </button>
