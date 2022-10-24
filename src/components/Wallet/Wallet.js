@@ -25,7 +25,7 @@ const Wallet = () => {
 
             <div className="flex flex-col items-center mt-6 xl:items-start xl:w-1/2 xl:mt-0">
               <h2 className="text-3xl font-bold tracking-tight text-gray-800 xl:text-4xl dark:text-white">
-                Download our free mobile app
+                Crypto Wallet
               </h2>
 
               <p className="block max-w-2xl mt-4 text-xl text-gray-500 dark:text-gray-300">
